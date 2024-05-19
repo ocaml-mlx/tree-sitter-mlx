@@ -5,15 +5,16 @@
 [![matrix][matrix]](https://matrix.to/#/#tree-sitter-chat:matrix.org)
 [![crates][crates]](https://crates.io/crates/tree-sitter-ocaml)
 [![npm][npm]](https://www.npmjs.com/package/tree-sitter-ocaml)
+[![pypi][pypi]](https://pypi.org/project/tree-sitter-ocaml)
 
 OCaml grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
 This module defines grammars for implementations (`.ml`) interfaces (`.mli`) and types. Require them as follows:
 
 ```js
-require('tree-sitter-ocaml').ocaml;
-require('tree-sitter-ocaml').interface;
-require('tree-sitter-ocaml').type;
+require("tree-sitter-ocaml").ocaml;
+require("tree-sitter-ocaml").interface;
+require("tree-sitter-ocaml").type;
 ```
 
 References
@@ -27,3 +28,4 @@ References
 [matrix]: https://img.shields.io/matrix/tree-sitter-chat%3Amatrix.org?logo=matrix&label=matrix
 [npm]: https://img.shields.io/npm/v/tree-sitter-ocaml?logo=npm
 [crates]: https://img.shields.io/crates/v/tree-sitter-ocaml?logo=rust
+[pypi]: https://img.shields.io/pypi/v/tree-sitter-ocaml?logo=pypi&logoColor=ffd242

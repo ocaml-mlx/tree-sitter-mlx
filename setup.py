@@ -35,12 +35,12 @@ setup(
             name="_binding",
             sources=[
                 "bindings/python/tree_sitter_ocaml/binding.c",
-                "grammars/ocaml/src/parser.c",
-                "grammars/ocaml/src/scanner.c",
-                "grammars/interface/src/parser.c",
-                "grammars/interface/src/scanner.c",
-                "grammars/type/src/parser.c",
-                "grammars/type/src/scanner.c",
+                "ocaml/src/parser.c",
+                "ocaml/src/scanner.c",
+                "ocaml_interface/src/parser.c",
+                "ocaml_interface/src/scanner.c",
+                "ocaml_type/src/parser.c",
+                "ocaml_type/src/scanner.c",
             ],
             extra_compile_args=(
                 ["-std=c11"] if system() != 'Windows' else []
@@ -49,7 +49,7 @@ setup(
                 ("Py_LIMITED_API", "0x03080000"),
                 ("PY_SSIZE_T_CLEAN", None)
             ],
-            include_dirs=["include"],
+            include_dirs=["ocaml/src"],
             py_limited_api=True,
         )
     ],

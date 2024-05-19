@@ -57,26 +57,26 @@ pub fn language_ocaml_type() -> Language {
 /// The content of the [`node-types.json`][] file for OCaml.
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers#static-node-types
-pub const OCAML_NODE_TYPES: &'static str = include_str!("../../grammars/ocaml/src/node-types.json");
+pub const OCAML_NODE_TYPES: &str = include_str!("../../ocaml/src/node-types.json");
 
 /// The content of the [`node-types.json`][] file for OCaml interfaces.
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers#static-node-types
-pub const INTERFACE_NODE_TYPES: &'static str = include_str!("../../grammars/interface/src/node-types.json");
+pub const INTERFACE_NODE_TYPES: &str = include_str!("../../ocaml_interface/src/node-types.json");
 
 /// The content of the [`node-types.json`][] file for OCaml types.
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers#static-node-types
-pub const TYPE_NODE_TYPES: &'static str = include_str!("../../grammars/type/src/node-types.json");
+pub const TYPE_NODE_TYPES: &str = include_str!("../../ocaml_type/src/node-types.json");
 
 /// The syntax highlighting query for OCaml.
-pub const HIGHLIGHTS_QUERY: &'static str = include_str!("../../queries/highlights.scm");
+pub const HIGHLIGHTS_QUERY: &str = include_str!("../../queries/highlights.scm");
 
 /// The local-variable syntax highlighting query for OCaml.
-pub const LOCALS_QUERY: &'static str = include_str!("../../queries/locals.scm");
+pub const LOCALS_QUERY: &str = include_str!("../../queries/locals.scm");
 
 /// The symbol tagging query for OCaml.
-pub const TAGGING_QUERY: &'static str = include_str!("../../queries/tags.scm");
+pub const TAGGING_QUERY: &str = include_str!("../../queries/tags.scm");
 
 #[cfg(test)]
 mod tests {

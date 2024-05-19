@@ -14,40 +14,51 @@
   ],
   "files": [
     "binding.gyp",
-    "bindings/node/*",
-    "grammars/ocaml/src/*",
-    "grammars/interface/src/*",
-    "grammars/type/src/*",
-    "include/**",
     "prebuilds/**",
-    "queries/*"
+    "bindings/node/*",
+    "queries/*",
+    "ocaml/grammar.js",
+    "ocaml_interface/grammar.js",
+    "ocaml_type/grammar.js",
+    "ocaml/package.json",
+    "ocaml_interface/package.json",
+    "ocaml_type/package.json",
+    "ocaml/src/**",
+    "ocaml_interface/src/**",
+    "ocaml_type/src/**",
+    "common/**"
   ],
   "dependencies": {
-    "node-addon-api": "^7.1.0",
-    "node-gyp-build": "^4.8.0"
+    "node-addon-api": "^8.0.0",
+    "node-gyp-build": "^4.8.1"
   },
   "devDependencies": {
-    "prebuildify": "^6.0.0",
-    "tree-sitter-cli": "^0.22.0"
+    "prebuildify": "^6.0.1",
+    "tree-sitter-cli": "^0.22.6"
   },
   "peerDependencies": {
-    "tree-sitter": "0.21"
+    "tree-sitter": "^0.21.0"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
   },
   "scripts": {
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip",
     "build": "npm run build-ocaml && npm run build-interface && npm run build-type",
-    "build-ocaml": "cd grammars/ocaml && tree-sitter generate --no-bindings",
-    "build-interface": "cd grammars/interface && tree-sitter generate --no-bindings",
-    "build-type": "cd grammars/type && tree-sitter generate --no-bindings",
+    "build-ocaml": "cd ocaml && tree-sitter generate --no-bindings",
+    "build-interface": "cd ocaml_interface && tree-sitter generate --no-bindings",
+    "build-type": "cd ocaml_type && tree-sitter generate --no-bindings",
     "build-wasm": "npm run build-wasm-ocaml && npm run build-wasm-interface && npm run build-wasm-type",
-    "build-wasm-ocaml": "cd grammars/ocaml && tree-sitter build-wasm",
-    "build-wasm-interface": "cd grammars/interface && tree-sitter build-wasm",
-    "build-wasm-type": "cd grammars/type && tree-sitter build-wasm",
+    "build-wasm-ocaml": "cd ocaml && tree-sitter build-wasm",
+    "build-wasm-interface": "cd ocaml_interface && tree-sitter build-wasm",
+    "build-wasm-type": "cd ocaml_type && tree-sitter build-wasm",
     "test": "npm run test-ocaml && npm run test-interface && npm run test-type && npm run test-highlight",
-    "test-ocaml": "cd grammars/ocaml && tree-sitter test",
-    "test-interface": "cd grammars/interface && tree-sitter test",
-    "test-type": "cd grammars/type && tree-sitter test",
+    "test-ocaml": "cd ocaml && tree-sitter test",
+    "test-interface": "cd ocaml_interface && tree-sitter test",
+    "test-type": "cd ocaml_type && tree-sitter test",
     "test-highlight": "tree-sitter test",
     "test-binding": "node --test bindings/node/binding_test.js",
     "parse": "tree-sitter parse",
@@ -56,9 +67,9 @@
   "tree-sitter": [
     {
       "scope": "source.ocaml",
-      "path": "grammars/ocaml",
+      "path": "ocaml",
       "external-files": [
-        "include/scanner.h"
+        "common/scanner.h"
       ],
       "file-types": [
         "ml"
@@ -70,9 +81,9 @@
     },
     {
       "scope": "source.ocaml.interface",
-      "path": "grammars/interface",
+      "path": "ocaml_interface",
       "external-files": [
-        "include/scanner.h"
+        "common/scanner.h"
       ],
       "file-types": [
         "mli"
@@ -84,9 +95,9 @@
     },
     {
       "scope": "source.ocaml.type",
-      "path": "grammars/type",
+      "path": "ocaml_type",
       "external-files": [
-        "include/scanner.h"
+        "common/scanner.h"
       ],
       "file-types": [],
       "injection-regex": "^ocaml_type$",

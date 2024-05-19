@@ -6,16 +6,16 @@
         "<!(node -p \"require('node-addon-api').targets\"):node_addon_api_except",
       ],
       "include_dirs": [
-        "include"
+        "ocaml/src"
       ],
       "sources": [
         "bindings/node/binding.cc",
-        "grammars/ocaml/src/parser.c",
-        "grammars/ocaml/src/scanner.c",
-        "grammars/interface/src/parser.c",
-        "grammars/interface/src/scanner.c",
-        "grammars/type/src/parser.c",
-        "grammars/type/src/scanner.c",
+        "ocaml/src/parser.c",
+        "ocaml/src/scanner.c",
+        "ocaml_interface/src/parser.c",
+        "ocaml_interface/src/scanner.c",
+        "ocaml_type/src/parser.c",
+        "ocaml_type/src/scanner.c",
       ],
       "cflags_c": [
         "-std=c11",

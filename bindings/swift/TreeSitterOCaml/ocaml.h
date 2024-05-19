@@ -7,12 +7,10 @@ typedef struct TSLanguage TSLanguage;
 extern "C" {
 #endif
 
-extern TSLanguage *tree_sitter_ocaml();
-extern TSLanguage *tree_sitter_ocaml_interface();
-extern TSLanguage *tree_sitter_ocaml_type();
+const TSLanguage *tree_sitter_ocaml();
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // TREE_SITTER_OCAML_H_
+#endif // TREE_SITTER_OCAML_H_

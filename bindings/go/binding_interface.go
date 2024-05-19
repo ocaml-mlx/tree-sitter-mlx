@@ -1,8 +1,8 @@
 package tree_sitter_ocaml
 
-// #cgo CFLAGS: -I../../include -std=c11 -fPIC
-// #include "../../grammars/interface/src/parser.c"
-// #include "../../grammars/interface/src/scanner.c"
+// #cgo CFLAGS: -I../../ocaml/src -std=c11 -fPIC
+// #include "../../ocaml_interface/src/parser.c"
+// #include "../../ocaml_interface/src/scanner.c"
 import "C"
 
 import "unsafe"
