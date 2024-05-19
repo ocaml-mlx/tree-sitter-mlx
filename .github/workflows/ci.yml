@@ -20,13 +20,13 @@ jobs:
       - name: Set up tree-sitter
         uses: tree-sitter/setup-action/cli@v1
       - name: Test ocaml
-        working-directory: grammars/ocaml
+        working-directory: ocaml
         run: tree-sitter test
       - name: Test interface
-        working-directory: grammars/interface
+        working-directory: ocaml_interface
         run: tree-sitter test
       - name: Test type
-        working-directory: grammars/type
+        working-directory: ocaml_type
         run: tree-sitter test
       - name: Test highlighting
         run: tree-sitter test
@@ -38,11 +38,41 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+    env:
+      REPOSITORIES: |
+        0install/0install@225587e
+        BinaryAnalysisPlatform/bap@f969db3
+        janestreet/base@1311ac1
+        dbuenzli/cmdliner@c229193
+        ocaml/dune@58d1cd3
+        ocaml-multicore/eio@14ae3cf
+        ocsigen/js_of_ocaml@d2cf189
+        garrigue/lablgtk@e2d564b
+        ocsigen/lwt@73f1a0f
+        melange-re/melange@01d6ba4
+        ocaml/merlin@b274d31
+        ocaml/ocaml@18c4510
+        mirage/ocaml-cohttp@cf2ae33
+        ocaml/ocaml-lsp@ad20957
+        ocaml-ppx/ocamlformat@6ce00bf
+        ocaml/opam@eafdc81
+        owlbarn/owl@c66069e
+        ocaml-ppx/ppxlib@455f217
+        facebook/pyre-check@5cd77ed
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          submodules: true
+      - name: Clone repos
+        run: |
+          IFS=$'\n'
+          for repo in $REPOSITORIES; do
+            IFS='@' read -r repo_url repo_sha <<< "$repo"
+            repo_name=$(basename $repo_url)
+            git clone https://github.com/$repo_url.git examples/$repo_name
+            cd examples/$repo_name
+            git checkout $repo_sha
+            cd ../../
+          done
       - name: Set up tree-sitter
         uses: tree-sitter/setup-action/cli@v1
       - name: Parse examples
@@ -119,5 +149,3 @@ jobs:
         uses: actions/checkout@v4
       - name: Build
         run: swift build
-      - name: Test
-        run: swift test

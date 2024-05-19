@@ -1,0 +1,31 @@
+name: Fuzz Parser
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - ocaml/src/scanner.c
+      - ocaml_interface/src/scanner.c
+      - ocaml_type/src/scanner.c
+      - common/scanner.h
+  pull_request:
+    paths:
+      - ocaml/src/scanner.c
+      - ocaml_interface/src/scanner.c
+      - ocaml_type/src/scanner.c
+      - common/scanner.h
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ocaml, ocaml_interface, ocaml_type]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Fuzz ${{matrix.language}} parser
+        uses: tree-sitter/fuzz-action@v4
+        with:
+          directory: ${{matrix.language}}
