@@ -6,6 +6,7 @@ LANGUAGE_NAME := tree-sitter-ocaml
 OCAML_DIR := grammars/ocaml
 INTERFACE_DIR := grammars/interface
 TYPE_DIR := grammars/type
+MLX_DIR := grammars/mlx
 SRC_DIR := grammars/ocaml/src
 
 PARSER_REPO_URL := $(shell git remote get-url origin 2>/dev/null)
@@ -92,6 +93,9 @@ $(INTERFACE_DIR)/src/parser.c: $(OCAML_DIR)/grammar.js $(INTERFACE_DIR)/grammar.
 
 $(TYPE_DIR)/src/parser.c: $(OCAML_DIR)/grammar.js $(TYPE_DIR)/grammar.js
 	cd $(TYPE_DIR) && $(TS) generate --no-bindings
+
+$(MLX_DIR)/src/parser.c: $(OCAML_DIR)/grammar.js $(MLX_DIR)/grammar.js
+	cd $(MLX_DIR) && $(TS) generate --no-bindings
 
 install: all
 	install -Dm644 bindings/c/$(LANGUAGE_NAME).h '$(DESTDIR)$(INCLUDEDIR)'/tree_sitter/$(LANGUAGE_NAME).h
