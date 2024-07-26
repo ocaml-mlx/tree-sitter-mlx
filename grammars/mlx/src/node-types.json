@@ -2764,40 +2764,32 @@
   {
     "type": "jsx_element_closing",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "value_path",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "jsx_tag",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "jsx_element_opening",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "value_path",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "jsx_prop",
+          "named": true
+        },
+        {
+          "type": "jsx_tag",
           "named": true
         }
       ]
@@ -2806,24 +2798,17 @@
   {
     "type": "jsx_element_self_closing",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "value_path",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "jsx_prop",
+          "named": true
+        },
+        {
+          "type": "jsx_tag",
           "named": true
         }
       ]
@@ -2900,6 +2885,33 @@
       "types": [
         {
           "type": "_simple_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "jsx_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "module_name",
+          "named": true
+        },
+        {
+          "type": "module_path",
+          "named": true
+        },
+        {
+          "type": "parenthesized_operator",
+          "named": true
+        },
+        {
+          "type": "value_name",
           "named": true
         }
       ]

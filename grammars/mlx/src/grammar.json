@@ -10639,6 +10639,50 @@
         }
       ]
     },
+    "jsx_tag": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_value_name"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_module_name"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "module_path"
+            },
+            {
+              "type": "STRING",
+              "value": "."
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_value_name"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_module_name"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "jsx_element_self_closing": {
       "type": "SEQ",
       "members": [
@@ -10647,12 +10691,8 @@
           "value": "<"
         },
         {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "value_path"
-          }
+          "type": "SYMBOL",
+          "name": "jsx_tag"
         },
         {
           "type": "REPEAT",
@@ -10675,12 +10715,8 @@
           "value": "<"
         },
         {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "value_path"
-          }
+          "type": "SYMBOL",
+          "name": "jsx_tag"
         },
         {
           "type": "REPEAT",
@@ -10703,12 +10739,8 @@
           "value": "</"
         },
         {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "value_path"
-          }
+          "type": "SYMBOL",
+          "name": "jsx_tag"
         },
         {
           "type": "STRING",
