@@ -1,10 +1,7 @@
 {
-  "0": "o",
-  "1": "c",
-  "2": "a",
-  "3": "m",
-  "4": "l",
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "ocaml_mlx",
+  "inherits": "ocaml",
   "word": "_identifier",
   "rules": {
     "compilation_unit": {
@@ -10879,5 +10876,6 @@
     "_constant",
     "_signed_constant",
     "_infix_operator"
-  ]
+  ],
+  "reserved": {}
 }
