@@ -1171,6 +1171,7 @@
   {
     "type": "attribute",
     "named": true,
+    "extra": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -1596,6 +1597,7 @@
   {
     "type": "compilation_unit",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -5359,7 +5361,8 @@
   },
   {
     "type": "comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "concat_operator",
@@ -5483,7 +5486,8 @@
   },
   {
     "type": "line_number_directive",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "match",
