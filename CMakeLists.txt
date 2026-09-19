@@ -73,6 +73,8 @@ add_subdirectory(grammars/interface tree-sitter-ocaml-interface)
 
 add_subdirectory(grammars/type tree-sitter-ocaml-type)
 
+add_subdirectory(grammars/mlx tree-sitter-ocaml-mlx)
+
 file(GLOB QUERIES queries/*.scm)
 install(FILES ${QUERIES}
         DESTINATION "${CMAKE_INSTALL_DATADIR}/tree-sitter/queries/ocaml")

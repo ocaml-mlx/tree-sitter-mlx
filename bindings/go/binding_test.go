@@ -57,3 +57,20 @@ func TestOCamlTypeGrammar(t *testing.T) {
 		t.Errorf("Error parsing OCamlType")
 	}
 }
+
+func TestOCamlMlxGrammar(t *testing.T) {
+	language := tree_sitter.NewLanguage(tree_sitter_ocaml.LanguageOCamlMlx())
+	if language == nil {
+		t.Errorf("Error loading OCamlMlx grammar")
+	}
+
+	sourceCode := []byte("let x = <div>hello</div>")
+	parser := tree_sitter.NewParser()
+	defer parser.Close()
+	parser.SetLanguage(language)
+
+	tree := parser.Parse(sourceCode, nil)
+	if tree == nil || tree.RootNode().HasError() {
+		t.Errorf("Error parsing OCamlMlx")
+	}
+}

@@ -1,0 +1,116 @@
+==============================
+Self-closing element
+:language(ocaml_mlx)
+==============================
+
+let x = <div />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name)))))))
+
+==============================
+Element with a child and a prop
+:language(ocaml_mlx)
+==============================
+
+let x = <div className="a">hello</div>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (string
+                (string_content)))))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (value_name)))))))
+
+==============================
+Module-name tag with a prop and an optional prop
+:language(ocaml_mlx)
+==============================
+
+let x = <Foo.Bar a=1 ?b=y />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (value_path
+                (value_name)))))))))
+
+==============================
+Nested elements
+:language(ocaml_mlx)
+==============================
+
+let x = <div><span>a</span><span>b</span></div>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (value_name)))
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))
+        (jsx_element_closing
+          (jsx_tag
+            (value_name)))))))

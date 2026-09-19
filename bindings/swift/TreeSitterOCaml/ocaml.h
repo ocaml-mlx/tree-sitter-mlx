@@ -10,6 +10,7 @@ extern "C" {
 const TSLanguage *tree_sitter_ocaml();
 const TSLanguage *tree_sitter_ocaml_interface();
 const TSLanguage *tree_sitter_ocaml_type();
+const TSLanguage *tree_sitter_ocaml_mlx();
 
 #ifdef __cplusplus
 }

@@ -22,6 +22,8 @@ let package = Package(
                 "grammars/interface/src/scanner.c",
                 "grammars/type/src/parser.c",
                 "grammars/type/src/scanner.c",
+                "grammars/mlx/src/parser.c",
+                "grammars/mlx/src/scanner.c",
             ],
             resources: [
                 .copy("queries")

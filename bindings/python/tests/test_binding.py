@@ -34,3 +34,9 @@ class TestLanguage(TestCase):
         parser = Parser(language)
         tree = parser.parse(b"int list")
         self.assertFalse(tree.root_node.has_error)
+
+    def test_mlx_grammar(self):
+        language = Language(tree_sitter_ocaml.language_ocaml_mlx())
+        parser = Parser(language)
+        tree = parser.parse(b"let x = <div>hello</div>")
+        self.assertFalse(tree.root_node.has_error)
