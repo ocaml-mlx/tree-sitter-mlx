@@ -116,199 +116,204 @@ let x = <div><span>a</span><span>b</span></div>
             (value_name)))))))
 
 ==============================
-Children spread, spaced
+Capitalised module tag, self-closing
 :language(ocaml_mlx)
 ==============================
 
-let x = <div> ...children </div>
+let _ = <Hello attr with_value=1 />
 
 ---
 
 (compilation_unit
   (value_definition
     (let_binding
-      pattern: (value_name)
+      pattern: (any_pattern)
       body: (jsx_expression
-        (jsx_element_opening
+        (jsx_element_self_closing
           (jsx_tag
-            (value_name)))
-        (jsx_children_spread
-          (value_path
-            (value_name)))
-        (jsx_element_closing
-          (jsx_tag
-            (value_name)))))))
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number))))))))
 
 ==============================
-Children spread, unspaced
+Capitalised module tag, with children
 :language(ocaml_mlx)
 ==============================
 
-let x = <div>...children</div>
+let _ = <Hello>world</Hello>
 
 ---
 
 (compilation_unit
   (value_definition
     (let_binding
-      pattern: (value_name)
-      body: (jsx_expression
-        (jsx_element_opening
-          (jsx_tag
-            (value_name)))
-        (jsx_children_spread
-          (value_path
-            (value_name)))
-        (jsx_element_closing
-          (jsx_tag
-            (value_name)))))))
-
-==============================
-Children spread of a parenthesised module-call expression
-:language(ocaml_mlx)
-==============================
-
-let x = <Foo>...(List.map f xs)</Foo>
-
----
-
-(compilation_unit
-  (value_definition
-    (let_binding
-      pattern: (value_name)
+      pattern: (any_pattern)
       body: (jsx_expression
         (jsx_element_opening
           (jsx_tag
             (module_name)))
-        (jsx_children_spread
-          (parenthesized_expression
-            expression: (application_expression
-              function: (value_path
-                (module_path
-                  (module_name))
-                (value_name))
-              argument: (value_path
-                (value_name))
-              argument: (value_path
-                (value_name)))))
+        (value_path
+          (value_name))
         (jsx_element_closing
           (jsx_tag
             (module_name)))))))
 
 ==============================
-Children spread of a list literal
+Module-path plus lowercase value name tag, self-closing
 :language(ocaml_mlx)
 ==============================
 
-let x = <Foo>...[1;2;3]</Foo>
+let _ = <Hello.ok attr with_value=1 />
 
 ---
 
 (compilation_unit
   (value_definition
     (let_binding
-      pattern: (value_name)
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number))))))))
+
+==============================
+Module-path plus lowercase value name tag, with children
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello.ok>world</Hello.ok>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
       body: (jsx_expression
         (jsx_element_opening
           (jsx_tag
-            (module_name)))
-        (jsx_children_spread
-          (list_expression
-            (number)
-            (number)
-            (number)))
+            (module_path
+              (module_name))
+            (value_name)))
+        (value_path
+          (value_name))
         (jsx_element_closing
           (jsx_tag
-            (module_name)))))))
+            (module_path
+              (module_name))
+            (value_name)))))))
 
 ==============================
-Children spread of a nested JSX element
+Module-path plus module name tag, self-closing
 :language(ocaml_mlx)
 ==============================
 
-let x = <div>...<span>a</span></div>
+let _ = <Hello.Ok attr with_value=1 />
 
 ---
 
 (compilation_unit
   (value_definition
     (let_binding
-      pattern: (value_name)
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number))))))))
+
+==============================
+Module-path plus module name tag, with children
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello.Ok>world</Hello.Ok>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name)))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name)))))))
+
+==============================
+Multiple bare children
+:language(ocaml_mlx)
+==============================
+
+let _ = <div>hello world</div>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
       body: (jsx_expression
         (jsx_element_opening
           (jsx_tag
             (value_name)))
-        (jsx_children_spread
-          (jsx_expression
-            (jsx_element_opening
-              (jsx_tag
-                (value_name)))
-            (value_path
-              (value_name))
-            (jsx_element_closing
-              (jsx_tag
-                (value_name)))))
+        (value_path
+          (value_name))
+        (value_path
+          (value_name))
         (jsx_element_closing
           (jsx_tag
             (value_name)))))))
 
 ==============================
-Punned prop
+Literal children of several kinds, alongside props
 :language(ocaml_mlx)
 ==============================
 
-let x = <div attr />
+let _ = <div attr with_value=1 ?opt>hello "str" 3.14 'c'</div>
 
 ---
 
 (compilation_unit
   (value_definition
     (let_binding
-      pattern: (value_name)
+      pattern: (any_pattern)
       body: (jsx_expression
-        (jsx_element_self_closing
-          (jsx_tag
-            (value_name))
-          (jsx_prop
-            (jsx_prop_name
-              (label_name))))))))
-
-==============================
-Optional punned prop
-:language(ocaml_mlx)
-==============================
-
-let x = <div ?opt />
-
----
-
-(compilation_unit
-  (value_definition
-    (let_binding
-      pattern: (value_name)
-      body: (jsx_expression
-        (jsx_element_self_closing
-          (jsx_tag
-            (value_name))
-          (jsx_prop
-            (jsx_prop_name
-              (label_name))))))))
-
-==============================
-Mixed punned and valued props
-:language(ocaml_mlx)
-==============================
-
-let x = <div attr with_value=1 ?opt ?opt_value=some />
-
----
-
-(compilation_unit
-  (value_definition
-    (let_binding
-      pattern: (value_name)
-      body: (jsx_expression
-        (jsx_element_self_closing
+        (jsx_element_opening
           (jsx_tag
             (value_name))
           (jsx_prop
@@ -321,20 +326,24 @@ let x = <div attr with_value=1 ?opt ?opt_value=some />
               (number)))
           (jsx_prop
             (jsx_prop_name
-              (label_name)))
-          (jsx_prop
-            (jsx_prop_name
-              (label_name))
-            (jsx_prop_value
-              (value_path
-                (value_name)))))))))
+              (label_name))))
+        (value_path
+          (value_name))
+        (string
+          (string_content))
+        (number)
+        (character
+          (character_content))
+        (jsx_element_closing
+          (jsx_tag
+            (value_name)))))))
 
 ==============================
-JSX element closing directly before "|]" in an array literal
+Punned prop shadowed by an outer binder, with children
 :language(ocaml_mlx)
 ==============================
 
-let x = [|<div>aa</div>|]
+let render children nested = <Component children>nested</Component>
 
 ---
 
@@ -342,7 +351,170 @@ let x = [|<div>aa</div>|]
   (value_definition
     (let_binding
       pattern: (value_name)
-      body: (array_expression
+      (parameter
+        pattern: (value_pattern))
+      (parameter
+        pattern: (value_pattern))
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (module_name)))))))
+
+==============================
+Nested element as the sole child, alongside props
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello.Ok ?opt_value=some attr><span>inner</span></Hello.Ok>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (value_path
+                (value_name))))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))))
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))
+        (jsx_element_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name)))))))
+
+==============================
+List lexer hack: bare tag, self-closing
+:language(ocaml_mlx)
+==============================
+
+let _ = [<element />]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
+        (jsx_expression
+          (jsx_element_self_closing
+            (jsx_tag
+              (value_name))))))))
+
+==============================
+List lexer hack: module tag, self-closing
+:language(ocaml_mlx)
+==============================
+
+let _ = [<M.element />]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
+        (jsx_expression
+          (jsx_element_self_closing
+            (jsx_tag
+              (module_path
+                (module_name))
+              (value_name))))))))
+
+==============================
+List lexer hack: bare tag, with a child
+:language(ocaml_mlx)
+==============================
+
+let _ = [<element> 1 </element>]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (number)
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))))))
+
+==============================
+List lexer hack: module tag, with a child
+:language(ocaml_mlx)
+==============================
+
+let _ = [<M.element> 1 </M.element>]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (module_path
+                (module_name))
+              (value_name)))
+          (number)
+          (jsx_element_closing
+            (jsx_tag
+              (module_path
+                (module_name))
+              (value_name))))))))
+
+==============================
+List lexer hack: single-bracket list containing one element
+:language(ocaml_mlx)
+==============================
+
+let _ = [<div>aa</div>]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
         (jsx_expression
           (jsx_element_opening
             (jsx_tag
@@ -354,54 +526,42 @@ let x = [|<div>aa</div>|]
               (value_name))))))))
 
 ==============================
-JSX element closing directly before "}" in a record expression
+Tag that looks like a method name
 :language(ocaml_mlx)
 ==============================
 
-let x = {x = <div>a</div>}
+let _ = <m />
 
 ---
 
 (compilation_unit
   (value_definition
     (let_binding
-      pattern: (value_name)
-      body: (record_expression
-        (field_expression
-          (field_path
-            (field_name))
-          body: (jsx_expression
-            (jsx_element_opening
-              (jsx_tag
-                (value_name)))
-            (value_path
-              (value_name))
-            (jsx_element_closing
-              (jsx_tag
-                (value_name)))))))))
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name)))))))
 
 ==============================
-Object type written unspaced after "<"
+Divergence: tag-name mismatch parses cleanly (no tag matching in this grammar)
 :language(ocaml_mlx)
 ==============================
 
-let f (x : <m : int>) = x#m
+let _ = <one>world</two>
 
 ---
 
 (compilation_unit
   (value_definition
     (let_binding
-      pattern: (value_name)
-      (parameter
-        pattern: (typed_pattern
-          pattern: (value_pattern)
-          type: (object_type
-            (method_type
-              (method_name)
-              type: (type_constructor_path
-                (type_constructor))))))
-      body: (method_invocation
-        object: (value_path
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (value_name)))
+        (value_path
           (value_name))
-        method: (method_name)))))
+        (jsx_element_closing
+          (jsx_tag
+            (value_name)))))))

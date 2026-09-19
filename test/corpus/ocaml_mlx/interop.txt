@@ -1,0 +1,530 @@
+==============================
+JSX element closing directly before "|]" in an array literal
+:language(ocaml_mlx)
+==============================
+
+let x = [|<div>aa</div>|]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (array_expression
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))))))
+
+==============================
+Multiple JSX elements in an array literal
+:language(ocaml_mlx)
+==============================
+
+let _ = [|<div>aa</div>; <div>bb</div>|]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (array_expression
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))))))
+
+==============================
+JSX element closing directly before "}" in a record expression
+:language(ocaml_mlx)
+==============================
+
+let x = {x = <div>a</div>}
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (record_expression
+        (field_expression
+          (field_path
+            (field_name))
+          body: (jsx_expression
+            (jsx_element_opening
+              (jsx_tag
+                (value_name)))
+            (value_path
+              (value_name))
+            (jsx_element_closing
+              (jsx_tag
+                (value_name)))))))))
+
+==============================
+Multiple fields in a record expression, one holding JSX
+:language(ocaml_mlx)
+==============================
+
+let _ = {x = <div>a</div>; y = 1}
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (record_expression
+        (field_expression
+          (field_path
+            (field_name))
+          body: (jsx_expression
+            (jsx_element_opening
+              (jsx_tag
+                (value_name)))
+            (value_path
+              (value_name))
+            (jsx_element_closing
+              (jsx_tag
+                (value_name)))))
+        (field_expression
+          (field_path
+            (field_name))
+          body: (number))))))
+
+==============================
+Record update expression with a JSX field value
+:language(ocaml_mlx)
+==============================
+
+let r = {r with x = <div>a</div>}
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (record_expression
+        record: (value_path
+          (value_name))
+        (field_expression
+          (field_path
+            (field_name))
+          body: (jsx_expression
+            (jsx_element_opening
+              (jsx_tag
+                (value_name)))
+            (value_path
+              (value_name))
+            (jsx_element_closing
+              (jsx_tag
+                (value_name)))))))))
+
+==============================
+Object type written unspaced after "<"
+:language(ocaml_mlx)
+==============================
+
+let f (x : <m : int>) = x#m
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      (parameter
+        pattern: (typed_pattern
+          pattern: (value_pattern)
+          type: (object_type
+            (method_type
+              (method_name)
+              type: (type_constructor_path
+                (type_constructor))))))
+      body: (method_invocation
+        object: (value_path
+          (value_name))
+        method: (method_name)))))
+
+==============================
+Object type written unspaced after "<", with multiple methods
+:language(ocaml_mlx)
+==============================
+
+let f (x : <m : int; n : float>) = x#m
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      (parameter
+        pattern: (typed_pattern
+          pattern: (value_pattern)
+          type: (object_type
+            (method_type
+              (method_name)
+              type: (type_constructor_path
+                (type_constructor)))
+            (method_type
+              (method_name)
+              type: (type_constructor_path
+                (type_constructor))))))
+      body: (method_invocation
+        object: (value_path
+          (value_name))
+        method: (method_name)))))
+
+==============================
+Object type written unspaced after "<", with a polymorphic method
+:language(ocaml_mlx)
+==============================
+
+let f (x : <m : 'a. 'a -> 'a>) = x
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      (parameter
+        pattern: (typed_pattern
+          pattern: (value_pattern)
+          type: (object_type
+            (method_type
+              (method_name)
+              type: (polymorphic_type
+                (type_variable)
+                type: (function_type
+                  domain: (type_variable)
+                  codomain: (type_variable)))))))
+      body: (value_path
+        (value_name)))))
+
+==============================
+Object type, spaced form
+:language(ocaml_mlx)
+==============================
+
+let f (x : < m : int >) = x#m
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      (parameter
+        pattern: (typed_pattern
+          pattern: (value_pattern)
+          type: (object_type
+            (method_type
+              (method_name)
+              type: (type_constructor_path
+                (type_constructor))))))
+      body: (method_invocation
+        object: (value_path
+          (value_name))
+        method: (method_name)))))
+
+==============================
+Open object type
+:language(ocaml_mlx)
+==============================
+
+let f (x : < .. >) = x
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      (parameter
+        pattern: (typed_pattern
+          pattern: (value_pattern)
+          type: (object_type)))
+      body: (value_path
+        (value_name)))))
+
+==============================
+Operator sanity: ">|" is an ordinary operator when defined and applied
+:language(ocaml_mlx)
+==============================
+
+let (>|) a b = a
+let _ = 1>|2
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (parenthesized_operator
+        (rel_operator))
+      (parameter
+        pattern: (value_pattern))
+      (parameter
+        pattern: (value_pattern))
+      body: (value_path
+        (value_name))))
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (infix_expression
+        left: (number)
+        operator: (rel_operator)
+        right: (number)))))
+
+==============================
+Operator sanity: ">|" stays an ordinary operator inside an array literal
+:language(ocaml_mlx)
+==============================
+
+let (>|) a b = a
+let _ = [|1>|2|]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (parenthesized_operator
+        (rel_operator))
+      (parameter
+        pattern: (value_pattern))
+      (parameter
+        pattern: (value_pattern))
+      body: (value_path
+        (value_name))))
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (array_expression
+        (infix_expression
+          left: (number)
+          operator: (rel_operator)
+          right: (number))))))
+
+==============================
+Operator sanity: ">|=" as an infix operator in a let ... in
+:language(ocaml_mlx)
+==============================
+
+let (>|=) a b = a in 1 >|= 2
+
+---
+
+(compilation_unit
+  (expression_item
+    (let_expression
+      (value_definition
+        (let_binding
+          pattern: (parenthesized_operator
+            (rel_operator))
+          (parameter
+            pattern: (value_pattern))
+          (parameter
+            pattern: (value_pattern))
+          body: (value_path
+            (value_name))))
+      body: (infix_expression
+        left: (number)
+        operator: (rel_operator)
+        right: (number)))))
+
+==============================
+Operator sanity: ">." operator definition
+:language(ocaml_mlx)
+==============================
+
+let (>.) a b = a
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (parenthesized_operator
+        (rel_operator))
+      (parameter
+        pattern: (value_pattern))
+      (parameter
+        pattern: (value_pattern))
+      body: (value_path
+        (value_name)))))
+
+==============================
+Operator sanity: ">." operator use
+:language(ocaml_mlx)
+==============================
+
+let _ = x >. y
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (infix_expression
+        left: (value_path
+          (value_name))
+        operator: (rel_operator)
+        right: (value_path
+          (value_name))))))
+
+==============================
+Object override, unspaced "{<x = 2>}"
+:language(ocaml_mlx)
+==============================
+
+let _ = object val x = 1 method m = {<x = 2>} end
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (object_expression
+        (instance_variable_definition
+          (instance_variable_name)
+          body: (number))
+        (method_definition
+          (method_name)
+          body: (object_copy_expression
+            (instance_variable_expression
+              (instance_variable_name)
+              expression: (number))))))))
+
+==============================
+Object override, spaced "{< x = 2 >}"
+:language(ocaml_mlx)
+==============================
+
+let _ = object val x = 1 method m = {< x = 2 >} end
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (object_expression
+        (instance_variable_definition
+          (instance_variable_name)
+          body: (number))
+        (method_definition
+          (method_name)
+          body: (object_copy_expression
+            (instance_variable_expression
+              (instance_variable_name)
+              expression: (number))))))))
+
+==============================
+Object override with a parenthesised comparison as the field value
+:language(ocaml_mlx)
+==============================
+
+let _ = object val x = true method m = {< x = (1 > 2) >} end
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (object_expression
+        (instance_variable_definition
+          (instance_variable_name)
+          body: (boolean))
+        (method_definition
+          (method_name)
+          body: (object_copy_expression
+            (instance_variable_expression
+              (instance_variable_name)
+              expression: (parenthesized_expression
+                expression: (infix_expression
+                  left: (number)
+                  operator: (rel_operator)
+                  right: (number))))))))))
+
+==============================
+Divergence: object override with a space before the closing brace,
+"{< x = 2 > }", is accepted by the dialect but fails here (ERROR) --
+the grammar's GREATER RBRACE is a single fused token, not two as in mlx
+:language(ocaml_mlx)
+==============================
+
+let _ = object val x = 1 method m = {< x = 2 > } end
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)))
+  (ERROR
+    (instance_variable_definition
+      (instance_variable_name)
+      body: (number))
+    (instance_variable_name)
+    (number)
+    (rel_operator)))
+
+==============================
+Operator sanity: ">>=" as an infix operator in a let ... in
+:language(ocaml_mlx)
+==============================
+
+let (>>=) a f = f a in x >>= y
+
+---
+
+(compilation_unit
+  (expression_item
+    (let_expression
+      (value_definition
+        (let_binding
+          pattern: (parenthesized_operator
+            (rel_operator))
+          (parameter
+            pattern: (value_pattern))
+          (parameter
+            pattern: (value_pattern))
+          body: (application_expression
+            function: (value_path
+              (value_name))
+            argument: (value_path
+              (value_name)))))
+      body: (infix_expression
+        left: (value_path
+          (value_name))
+        operator: (rel_operator)
+        right: (value_path
+          (value_name))))))
