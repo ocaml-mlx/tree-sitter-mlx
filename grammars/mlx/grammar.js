@@ -18,9 +18,14 @@ export default grammar(ocaml, {
     ),
     _jsx_element: $ => seq(
       $.jsx_element_opening,
-      repeat($._simple_expression),
+      choice(
+        repeat($._simple_expression),
+        $.jsx_children_spread,
+      ),
       $.jsx_element_closing,
     ),
+
+    jsx_children_spread: $ => seq('...', $._simple_expression),
 
     jsx_tag: $ =>
       path($.module_path, choice($._value_name, $._module_name)),
@@ -34,7 +39,7 @@ export default grammar(ocaml, {
     jsx_element_closing: $ =>
       seq('</', $.jsx_tag, '>'),
 
-    jsx_prop: $ => seq($.jsx_prop_name, '=', $.jsx_prop_value),
+    jsx_prop: $ => seq($.jsx_prop_name, optional(seq('=', $.jsx_prop_value))),
     jsx_prop_name: $ => seq(optional('?'), $._label_name),
     jsx_prop_value: $ => $._simple_expression,
   },

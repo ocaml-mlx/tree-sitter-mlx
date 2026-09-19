@@ -3799,6 +3799,21 @@
     }
   },
   {
+    "type": "jsx_children_spread",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_simple_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "jsx_element_closing",
     "named": true,
     "fields": {},
@@ -3861,6 +3876,10 @@
       "types": [
         {
           "type": "_simple_expression",
+          "named": true
+        },
+        {
+          "type": "jsx_children_spread",
           "named": true
         },
         {
@@ -7155,6 +7174,10 @@
   },
   {
     "type": "..",
+    "named": false
+  },
+  {
+    "type": "...",
     "named": false
   },
   {
