@@ -11,16 +11,19 @@ try {
   const ocamlNodeTypes = await import(`${root}/grammars/ocaml/src/node-types.json`, {with: {type: 'json'}});
   const ocamlInterfaceNodeTypes = await import(`${root}/grammars/interface/src/node-types.json`, {with: {type: 'json'}});
   const ocamlTypeNodeTypes = await import(`${root}/grammars/type/src/node-types.json`, {with: {type: 'json'}});
+  const ocamlMlxNodeTypes = await import(`${root}/grammars/mlx/src/node-types.json`, {with: {type: 'json'}});
 
   binding.ocaml.nodeTypeInfo = ocamlNodeTypes.default;
   binding.ocaml_interface.nodeTypeInfo = ocamlInterfaceNodeTypes.default;
   binding.ocaml_type.nodeTypeInfo = ocamlTypeNodeTypes.default;
+  binding.ocaml_mlx.nodeTypeInfo = ocamlMlxNodeTypes.default;
 } catch { }
 
 
 export const ocaml = binding.ocaml;
 export const ocaml_interface = binding.ocaml_interface;
 export const ocaml_type = binding.ocaml_type;
+export const ocaml_mlx = binding.ocaml_mlx;
 
 export const HIGHLIGHTS_QUERY = readFileSync(`${root}/queries/highlights.scm`, 'utf8');
 export const LOCALS_QUERY = readFileSync(`${root}/queries/locals.scm`, 'utf8');

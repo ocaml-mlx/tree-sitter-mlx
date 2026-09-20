@@ -61,6 +61,8 @@ setup(
                 "grammars/interface/src/scanner.c",
                 "grammars/type/src/parser.c",
                 "grammars/type/src/scanner.c",
+                "grammars/mlx/src/parser.c",
+                "grammars/mlx/src/scanner.c",
             ],
             define_macros=[
                 ("PY_SSIZE_T_CLEAN", None),

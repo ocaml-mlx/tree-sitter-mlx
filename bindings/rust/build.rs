@@ -5,6 +5,7 @@ fn main() {
     let ocaml_dir = grammars_dir.join("ocaml").join("src");
     let interface_dir = grammars_dir.join("interface").join("src");
     let type_dir = grammars_dir.join("type").join("src");
+    let mlx_dir = grammars_dir.join("mlx").join("src");
 
     println!("cargo:rerun-if-changed={}", common_dir.to_str().unwrap());
 
@@ -32,7 +33,7 @@ fn main() {
         ]);
     }
 
-    for dir in &[ocaml_dir, interface_dir, type_dir] {
+    for dir in &[ocaml_dir, interface_dir, type_dir, mlx_dir] {
         let parser_path = dir.join("parser.c");
         let scanner_path = dir.join("scanner.c");
         c_config.file(&parser_path);

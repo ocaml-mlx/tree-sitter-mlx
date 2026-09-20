@@ -1,0 +1,303 @@
+==============================
+Punned prop
+:language(ocaml_mlx)
+==============================
+
+let x = <div attr />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))))))))
+
+==============================
+Optional punned prop
+:language(ocaml_mlx)
+==============================
+
+let x = <div ?opt />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))))))))
+
+==============================
+Mixed punned and valued props
+:language(ocaml_mlx)
+==============================
+
+let x = <div attr with_value=1 ?opt ?opt_value=some />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (value_path
+                (value_name)))))))))
+
+==============================
+Optional prop pairs: punned then valued
+:language(ocaml_mlx)
+==============================
+
+let _ = <div ?opt ?opt_value=some />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (value_path
+                (value_name)))))))))
+
+==============================
+Prop value: polymorphic variant tag
+:language(ocaml_mlx)
+==============================
+
+let _ = <element prop=`Some />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (tag))))))))
+
+==============================
+Prop value: module-qualified value path
+:language(ocaml_mlx)
+==============================
+
+let _ = <element prop=Some.value />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (value_path
+                (module_path
+                  (module_name))
+                (value_name)))))))))
+
+==============================
+Prop value: unit
+:language(ocaml_mlx)
+==============================
+
+let _ = <element prop=() />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (unit))))))))
+
+==============================
+Prop value: parenthesised arithmetic expression
+:language(ocaml_mlx)
+==============================
+
+let _ = <element prop=(1+2) />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (parenthesized_expression
+                expression: (infix_expression
+                  left: (number)
+                  operator: (add_operator)
+                  right: (number))))))))))
+
+==============================
+Prop value: empty list
+:language(ocaml_mlx)
+==============================
+
+let _ = <element prop=[] />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (empty_list))))))))
+
+==============================
+Prop value: method invocation
+:language(ocaml_mlx)
+==============================
+
+let _ = <element prop=name#obj />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (method_invocation
+                object: (value_path
+                  (value_name))
+                method: (method_name)))))))))
+
+==============================
+Prop value: dereference
+:language(ocaml_mlx)
+==============================
+
+let _ = <element prop=!ref />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (prefix_expression
+                operator: (prefix_operator)
+                expression: (value_path
+                  (value_name))))))))))
+
+==============================
+Prop value: optional dereference
+:language(ocaml_mlx)
+==============================
+
+let _ = <element prop=!?ref />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (prefix_expression
+                operator: (prefix_operator)
+                expression: (value_path
+                  (value_name))))))))))

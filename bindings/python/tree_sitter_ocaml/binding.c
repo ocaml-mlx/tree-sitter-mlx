@@ -5,6 +5,7 @@ typedef struct TSLanguage TSLanguage;
 TSLanguage *tree_sitter_ocaml(void);
 TSLanguage *tree_sitter_ocaml_interface(void);
 TSLanguage *tree_sitter_ocaml_type(void);
+TSLanguage *tree_sitter_ocaml_mlx(void);
 
 static PyObject* _binding_language_ocaml(PyObject *Py_UNUSED(self), PyObject *Py_UNUSED(args)) {
     return PyCapsule_New(tree_sitter_ocaml(), "tree_sitter.Language", NULL);
@@ -16,6 +17,10 @@ static PyObject* _binding_language_ocaml_interface(PyObject *Py_UNUSED(self), Py
 
 static PyObject* _binding_language_ocaml_type(PyObject *Py_UNUSED(self), PyObject *Py_UNUSED(args)) {
     return PyCapsule_New(tree_sitter_ocaml_type(), "tree_sitter.Language", NULL);
+}
+
+static PyObject* _binding_language_ocaml_mlx(PyObject *Py_UNUSED(self), PyObject *Py_UNUSED(args)) {
+    return PyCapsule_New(tree_sitter_ocaml_mlx(), "tree_sitter.Language", NULL);
 }
 
 static struct PyModuleDef_Slot slots[] = {
@@ -32,6 +37,8 @@ static PyMethodDef methods[] = {
      "Get the tree-sitter language for OCaml interfaces."},
     {"language_ocaml_type", _binding_language_ocaml_type, METH_NOARGS,
      "Get the tree-sitter language for OCaml types."},
+    {"language_ocaml_mlx", _binding_language_ocaml_mlx, METH_NOARGS,
+     "Get the tree-sitter language for OCaml with JSX (mlx)."},
     {NULL, NULL, 0, NULL}
 };
 

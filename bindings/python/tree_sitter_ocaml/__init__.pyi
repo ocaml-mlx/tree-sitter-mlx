@@ -22,3 +22,7 @@ def language_ocaml_interface() -> CapsuleType:
 
 def language_ocaml_type() -> CapsuleType:
     """The tree-sitter language function for OCaml types."""
+
+
+def language_ocaml_mlx() -> CapsuleType:
+    """The tree-sitter language function for OCaml with JSX (mlx)."""

@@ -1,0 +1,567 @@
+==============================
+Self-closing element
+:language(ocaml_mlx)
+==============================
+
+let x = <div />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name)))))))
+
+==============================
+Element with a child and a prop
+:language(ocaml_mlx)
+==============================
+
+let x = <div className="a">hello</div>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (string
+                (string_content)))))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (value_name)))))))
+
+==============================
+Module-name tag with a prop and an optional prop
+:language(ocaml_mlx)
+==============================
+
+let x = <Foo.Bar a=1 ?b=y />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (value_path
+                (value_name)))))))))
+
+==============================
+Nested elements
+:language(ocaml_mlx)
+==============================
+
+let x = <div><span>a</span><span>b</span></div>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (value_name)))
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))
+        (jsx_element_closing
+          (jsx_tag
+            (value_name)))))))
+
+==============================
+Capitalised module tag, self-closing
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello attr with_value=1 />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number))))))))
+
+==============================
+Capitalised module tag, with children
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello>world</Hello>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (module_name)))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (module_name)))))))
+
+==============================
+Module-path plus lowercase value name tag, self-closing
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello.ok attr with_value=1 />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number))))))))
+
+==============================
+Module-path plus lowercase value name tag, with children
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello.ok>world</Hello.ok>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (module_path
+              (module_name))
+            (value_name)))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (value_name)))))))
+
+==============================
+Module-path plus module name tag, self-closing
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello.Ok attr with_value=1 />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number))))))))
+
+==============================
+Module-path plus module name tag, with children
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello.Ok>world</Hello.Ok>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name)))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name)))))))
+
+==============================
+Multiple bare children
+:language(ocaml_mlx)
+==============================
+
+let _ = <div>hello world</div>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (value_name)))
+        (value_path
+          (value_name))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (value_name)))))))
+
+==============================
+Literal children of several kinds, alongside props
+:language(ocaml_mlx)
+==============================
+
+let _ = <div attr with_value=1 ?opt>hello "str" 3.14 'c'</div>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (value_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (number)))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))))
+        (value_path
+          (value_name))
+        (string
+          (string_content))
+        (number)
+        (character
+          (character_content))
+        (jsx_element_closing
+          (jsx_tag
+            (value_name)))))))
+
+==============================
+Punned prop shadowed by an outer binder, with children
+:language(ocaml_mlx)
+==============================
+
+let render children nested = <Component children>nested</Component>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (value_name)
+      (parameter
+        pattern: (value_pattern))
+      (parameter
+        pattern: (value_pattern))
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (module_name)))))))
+
+==============================
+Nested element as the sole child, alongside props
+:language(ocaml_mlx)
+==============================
+
+let _ = <Hello.Ok ?opt_value=some attr><span>inner</span></Hello.Ok>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))
+            (jsx_prop_value
+              (value_path
+                (value_name))))
+          (jsx_prop
+            (jsx_prop_name
+              (label_name))))
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))
+        (jsx_element_closing
+          (jsx_tag
+            (module_path
+              (module_name))
+            (module_name)))))))
+
+==============================
+List lexer hack: bare tag, self-closing
+:language(ocaml_mlx)
+==============================
+
+let _ = [<element />]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
+        (jsx_expression
+          (jsx_element_self_closing
+            (jsx_tag
+              (value_name))))))))
+
+==============================
+List lexer hack: module tag, self-closing
+:language(ocaml_mlx)
+==============================
+
+let _ = [<M.element />]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
+        (jsx_expression
+          (jsx_element_self_closing
+            (jsx_tag
+              (module_path
+                (module_name))
+              (value_name))))))))
+
+==============================
+List lexer hack: bare tag, with a child
+:language(ocaml_mlx)
+==============================
+
+let _ = [<element> 1 </element>]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (number)
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))))))
+
+==============================
+List lexer hack: module tag, with a child
+:language(ocaml_mlx)
+==============================
+
+let _ = [<M.element> 1 </M.element>]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (module_path
+                (module_name))
+              (value_name)))
+          (number)
+          (jsx_element_closing
+            (jsx_tag
+              (module_path
+                (module_name))
+              (value_name))))))))
+
+==============================
+List lexer hack: single-bracket list containing one element
+:language(ocaml_mlx)
+==============================
+
+let _ = [<div>aa</div>]
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (list_expression
+        (jsx_expression
+          (jsx_element_opening
+            (jsx_tag
+              (value_name)))
+          (value_path
+            (value_name))
+          (jsx_element_closing
+            (jsx_tag
+              (value_name))))))))
+
+==============================
+Tag that looks like a method name
+:language(ocaml_mlx)
+==============================
+
+let _ = <m />
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_self_closing
+          (jsx_tag
+            (value_name)))))))
+
+==============================
+Divergence: tag-name mismatch parses cleanly (no tag matching in this grammar)
+:language(ocaml_mlx)
+==============================
+
+let _ = <one>world</two>
+
+---
+
+(compilation_unit
+  (value_definition
+    (let_binding
+      pattern: (any_pattern)
+      body: (jsx_expression
+        (jsx_element_opening
+          (jsx_tag
+            (value_name)))
+        (value_path
+          (value_name))
+        (jsx_element_closing
+          (jsx_tag
+            (value_name)))))))

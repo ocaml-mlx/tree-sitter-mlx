@@ -7,12 +7,14 @@ on:
       - grammars/ocaml/src/scanner.c
       - grammars/interface/src/scanner.c
       - grammars/type/src/scanner.c
+      - grammars/mlx/src/scanner.c
       - common/scanner.h
   pull_request:
     paths:
       - grammars/ocaml/src/scanner.c
       - grammars/interface/src/scanner.c
       - grammars/type/src/scanner.c
+      - grammars/mlx/src/scanner.c
       - common/scanner.h
 
 jobs:
@@ -21,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [grammars/ocaml, grammars/interface, grammars/type]
+        language: [grammars/ocaml, grammars/interface, grammars/type, grammars/mlx]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6

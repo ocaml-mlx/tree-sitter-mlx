@@ -46,6 +46,22 @@
       "locals": "queries/locals.scm",
       "tags": "queries/tags.scm",
       "injection-regex": "^ocaml_type$"
+    },
+    {
+      "name": "ocaml_mlx",
+      "camelcase": "OCamlMlx",
+      "scope": "source.ocaml.mlx",
+      "path": "grammars/mlx",
+      "external-files": [
+        "common/scanner.h"
+      ],
+      "file-types": [
+        "mlx"
+      ],
+      "highlights": "queries/highlights.scm",
+      "locals": "queries/locals.scm",
+      "tags": "queries/tags.scm",
+      "injection-regex": "^ocaml_mlx$"
     }
   ],
   "metadata": {

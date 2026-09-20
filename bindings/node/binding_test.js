@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import {describe, it} from 'node:test';
 import Parser from 'tree-sitter';
 
-import {ocaml, ocaml_interface, ocaml_type} from './index.js';
+import {ocaml, ocaml_interface, ocaml_type, ocaml_mlx} from './index.js';
 
 describe('OCaml', () => {
   const parser = new Parser();
@@ -53,6 +53,23 @@ describe('OCamlType', () => {
   it('should parse source code', () => {
     const sourceCode = `
     int list
+    `;
+    const tree = parser.parse(sourceCode);
+    assert(!tree.rootNode.hasError);
+  });
+});
+
+describe('OCamlMlx', () => {
+  const parser = new Parser();
+  parser.setLanguage(ocaml_mlx);
+
+  it('should be named ocaml_mlx', () => {
+    assert.strictEqual(parser.getLanguage().name, 'ocaml_mlx');
+  });
+
+  it('should parse source code', () => {
+    const sourceCode = `
+    let x = <div className="a">hello</div>
     `;
     const tree = parser.parse(sourceCode);
     assert(!tree.rootNode.hasError);

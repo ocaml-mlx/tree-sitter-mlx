@@ -61,6 +61,13 @@ export const ocaml_interface: Language;
  */
 export const ocaml_type: Language;
 
+/**
+ * The tree-sitter language object for OCaml with JSX (mlx).
+ *
+ * @see {@linkcode https://tree-sitter.github.io/node-tree-sitter/interfaces/Parser.Language.html Parser.Language}
+ */
+export const ocaml_mlx: Language;
+
 /** The syntax highlighting query for OCaml. */
 export const HIGHLIGHTS_QUERY: string;
 

@@ -5,6 +5,7 @@ typedef struct TSLanguage TSLanguage;
 extern "C" TSLanguage *tree_sitter_ocaml();
 extern "C" TSLanguage *tree_sitter_ocaml_interface();
 extern "C" TSLanguage *tree_sitter_ocaml_type();
+extern "C" TSLanguage *tree_sitter_ocaml_mlx();
 
 // "tree-sitter", "language" hashed with BLAKE2
 const napi_type_tag LANGUAGE_TYPE_TAG = {
@@ -30,9 +31,16 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     ocaml_type_language.TypeTag(&LANGUAGE_TYPE_TAG);
     ocaml_type["language"] = ocaml_type_language;
 
+    auto ocaml_mlx = Napi::Object::New(env);
+    ocaml_mlx["name"] = Napi::String::New(env, "ocaml_mlx");
+    auto ocaml_mlx_language = Napi::External<TSLanguage>::New(env, tree_sitter_ocaml_mlx());
+    ocaml_mlx_language.TypeTag(&LANGUAGE_TYPE_TAG);
+    ocaml_mlx["language"] = ocaml_mlx_language;
+
     exports["ocaml"] = ocaml;
     exports["ocaml_interface"] = ocaml_interface;
     exports["ocaml_type"] = ocaml_type;
+    exports["ocaml_mlx"] = ocaml_mlx;
     return exports;
 }
 

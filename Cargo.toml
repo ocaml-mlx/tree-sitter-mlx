@@ -21,6 +21,8 @@ include = [
   "grammars/interface/src",
   "grammars/type/grammar.js",
   "grammars/type/src",
+  "grammars/mlx/grammar.js",
+  "grammars/mlx/src",
   "queries",
   "tree-sitter.json",
 ]

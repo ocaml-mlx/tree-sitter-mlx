@@ -36,6 +36,7 @@ unsafe extern "C" {
     fn tree_sitter_ocaml() -> *const ();
     fn tree_sitter_ocaml_interface() -> *const ();
     fn tree_sitter_ocaml_type() -> *const ();
+    fn tree_sitter_ocaml_mlx() -> *const ();
 }
 
 /// The tree-sitter [`LanguageFn`][LanguageFn] for OCaml.
@@ -53,6 +54,11 @@ pub const LANGUAGE_OCAML_INTERFACE: LanguageFn = unsafe { LanguageFn::from_raw(t
 /// [LanguageFn]: https://docs.rs/tree-sitter-language/*/tree_sitter_language/struct.LanguageFn.html
 pub const LANGUAGE_OCAML_TYPE: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_ocaml_type) };
 
+/// The tree-sitter [`LanguageFn`] for OCaml with JSX (mlx).
+///
+/// [LanguageFn]: https://docs.rs/tree-sitter-language/*/tree_sitter_language/struct.LanguageFn.html
+pub const LANGUAGE_OCAML_MLX: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_ocaml_mlx) };
+
 /// The content of the [`node-types.json`][] file for OCaml.
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers/6-static-node-types.html
@@ -67,6 +73,11 @@ pub const INTERFACE_NODE_TYPES: &str = include_str!("../../grammars/interface/sr
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers/6-static-node-types.html
 pub const TYPE_NODE_TYPES: &str = include_str!("../../grammars/type/src/node-types.json");
+
+/// The content of the [`node-types.json`][] file for OCaml with JSX (mlx).
+///
+/// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers/6-static-node-types.html
+pub const MLX_NODE_TYPES: &str = include_str!("../../grammars/mlx/src/node-types.json");
 
 #[cfg(with_highlights_query)]
 /// The syntax highlighting query for OCaml.
@@ -126,6 +137,20 @@ mod tests {
             .expect("Error loading OCaml type parser");
 
         let code = r#"int list"#;
+
+        let tree = parser.parse(code, None).unwrap();
+        let root = tree.root_node();
+        assert!(!root.has_error());
+    }
+
+    #[test]
+    fn test_ocaml_mlx() {
+        let mut parser = tree_sitter::Parser::new();
+        parser
+            .set_language(&super::LANGUAGE_OCAML_MLX.into())
+            .expect("Error loading OCaml mlx parser");
+
+        let code = r#"let x = <div>hello</div>"#;
 
         let tree = parser.parse(code, None).unwrap();
         let root = tree.root_node();

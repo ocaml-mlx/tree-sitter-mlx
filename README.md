@@ -17,6 +17,14 @@ require('tree-sitter-ocaml').ocaml_interface;
 require('tree-sitter-ocaml').ocaml_type;
 ```
 
+This fork additionally defines an `ocaml_mlx` grammar, which extends the OCaml
+implementation grammar with the JSX syntax of the
+[`.mlx` dialect](https://github.com/ocaml-mlx/mlx). Require it as follows:
+
+```js
+require('tree-sitter-ocaml').ocaml_mlx;
+```
+
 References
 
 - [OCaml language reference](https://ocaml.org/manual/language.html)
